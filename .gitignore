@@ -1,0 +1,9 @@
+/.angular/
+/dist/
+/node_modules/
+/coverage/
+.idea/
+*.iml
+.vscode/
+.DS_Store
+.env
