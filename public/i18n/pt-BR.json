@@ -1,0 +1,134 @@
+{
+  "navbar": {
+    "secureCheckout": "Checkout seguro"
+  },
+  "checkout": {
+    "header": {
+      "title": "Audience Checkout",
+      "subtitle": "Experiência de assinatura segura"
+    },
+    "loading": "Carregando checkout...",
+    "loadError": "Não foi possível carregar o checkout.",
+    "badge": "Pagamento",
+    "title": "Finalize sua assinatura",
+    "subtitle": "Escolha uma forma de pagamento e confirme sua assinatura.",
+    "paymentMethod": {
+      "title": "Como você deseja pagar?",
+      "creditCard": "Cartão de crédito",
+      "debitCard": "Cartão de débito",
+      "pix": "Pix",
+      "select": "Selecionar forma de pagamento",
+      "required": "Selecione uma forma de pagamento para continuar."
+    },
+   "actions": {
+      "confirm": "Concluir pagamento",
+      "pay": "Pagar",
+      "processing": "Processando pagamento..."
+    },
+   "summary": {
+      "title": "Resumo do pedido",
+      "monthlySubscription": "Assinatura mensal",
+      "monthlyPlan": "Plano mensal",
+      "subtotal": "Subtotal",
+      "fees": "Taxas",
+      "total": "Total",
+      "totalToday": "Total hoje",
+      "renewalInfo": "Renovação mensal. Cancele quando quiser, sem taxas adicionais.",
+      "securityTitle": "Seus dados estão protegidos",
+      "securityDescription": "Pagamento criptografado. Não armazenamos os dados do seu cartão.",
+      "benefits": {
+        "projects": "Projetos e tarefas ilimitados",
+        "reports": "Relatórios e automações",
+        "prioritySupport": "Suporte prioritário"
+      }
+    }
+  },
+  "card": {
+    "holderName": {
+      "label": "Nome impresso no cartão",
+      "placeholder": "Digite o nome do titular",
+      "error": "Informe o nome do titular."
+    },
+    "number": {
+      "label": "Número do cartão",
+      "placeholder": "0000 0000 0000 0000",
+      "error": "Informe um número de cartão válido."
+    },
+    "expiry": {
+      "label": "Validade",
+      "placeholder": "MM/AA",
+      "error": "Use o formato MM/AA."
+    },
+    "cvv": {
+      "label": "CVV",
+      "placeholder": "123",
+      "error": "Informe um CVV válido."
+    }
+  },
+  "pix": {
+    "title": "Pague com Pix",
+    "description": "Escaneie o QR Code ou utilize o Pix Copia e Cola abaixo.",
+    "qrCodeDescription": "QR Code simulado para demonstração",
+    "copyPaste": "Pix Copia e Cola",
+    "copyButton": "Copiar código Pix",
+    "copied": "Código Pix copiado"
+  },
+  "processing": {
+    "title": "Processando seu pagamento",
+    "description": "Estamos aguardando a confirmação. Isso pode levar alguns segundos.",
+    "monthlyPlan": "Plano mensal",
+    "order": "Pedido",
+    "paymentMethod": "Forma de pagamento",
+    "total": "Total",
+    "waitingConfirmation": "Aguarde a confirmação",
+    "doNotClose": "Não feche esta página nem envie o pagamento novamente.",
+    "simulatedState": "Estado de processamento simulado"
+  },
+  "success": {
+    "title": "Pagamento confirmado!",
+    "description": "Sua assinatura foi ativada com sucesso.",
+    "status": "Assinatura ativa",
+    "monthlySubscription": "Assinatura mensal",
+    "order": "Pedido",
+    "paymentMethod": "Forma de pagamento",
+    "date": "Data",
+    "totalPaid": "Total pago",
+    "cardEnding": "Cartão final",
+    "accessSpace": "Acessar meu espaço",
+    "viewReceipt": "Ver recibo",
+    "nextRenewal": "Sua próxima renovação será em"
+  },
+  "error": {
+    "title": "Não foi possível concluir o pagamento",
+    "description": "Não se preocupe: nenhuma cobrança foi realizada e seu pedido continua reservado.",
+    "cardDeclined": "Cartão não autorizado",
+    "cardDeclinedDescription": "Seu banco recusou esta transação. Confira os dados e o limite disponível ou use outro meio de pagamento.",
+    "monthlyPlan": "Plano mensal",
+    "order": "Pedido",
+    "paymentMethod": "Meio usado",
+    "totalToPay": "Total a pagar",
+    "tryAgain": "Tentar novamente",
+    "changePaymentMethod": "Escolher outro meio",
+    "alternativePayment": "Você pode pagar com outro cartão ou escolher Pix.",
+    "help": "Ainda precisa de ajuda? Fale com a gente."
+  },
+  "products": {
+    "basic": {
+      "name": "Plano Básico",
+      "description": "Plano essencial para começar sua assinatura."
+    },
+    "premium": {
+      "name": "Plano Premium",
+      "description": "Plano completo com mais benefícios para sua assinatura."
+    },
+    "family": {
+      "name": "Plano Família",
+      "description": "Plano ideal para compartilhar a assinatura com sua família."
+    }
+  },
+  "stepper": {
+      "plan": "Plano",
+      "payment": "Pagamento",
+      "confirmation": "Confirmação"
+  }
+}

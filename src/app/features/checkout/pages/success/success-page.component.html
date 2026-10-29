@@ -1,0 +1,263 @@
+<!-- TOP NAVBAR -->
+<app-checkout-navbar />
+
+<main class="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
+
+  <div class="mx-auto max-w-6xl">
+
+    <div class="mx-auto mb-8 max-w-4xl">
+      <app-checkout-stepper [currentStep]="4" />
+    </div>
+
+    <div class="mx-auto max-w-2xl">
+
+      <section
+        class="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+
+        <div
+          class="mx-auto flex h-16 w-16 items-center justify-center
+                 rounded-full bg-emerald-100 text-emerald-700">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5">
+
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="m8 12 2.5 2.5L16 9"></path>
+
+          </svg>
+
+        </div>
+
+        <h1 class="mt-5 text-3xl font-bold text-slate-900">
+          {{ 'success.title' | translate }}
+        </h1>
+
+        <p class="mt-2 text-slate-500">
+          {{ 'success.description' | translate }}
+        </p>
+
+        <div class="mt-4 flex justify-center">
+
+          <span
+            class="inline-flex items-center gap-2 rounded-full
+                   bg-emerald-50 px-4 py-2
+                   text-sm font-semibold text-emerald-700">
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5">
+
+              <path d="m5 12 4 4L19 6"></path>
+
+            </svg>
+
+            {{ 'success.status' | translate }}
+
+          </span>
+
+        </div>
+
+        @if (checkoutState.checkoutResult(); as result) {
+
+          <div class="mt-8 rounded-xl bg-slate-50 p-6 text-left">
+
+            @for (product of result.products; track product.slug) {
+
+              <div class="flex items-start gap-4">
+
+                <div
+                  class="flex h-12 w-12 shrink-0 items-center justify-center
+                         rounded-xl bg-indigo-100 font-bold text-indigo-700">
+
+                  {{ product.name.charAt(0) }}
+
+                </div>
+
+                <div class="min-w-0 flex-1">
+
+                  <p class="font-semibold text-slate-900">
+                    {{ ('products.' + product.slug + '.name') | translate }}
+                  </p>
+
+                  <p class="mt-1 text-sm text-slate-500">
+                    {{ 'success.monthlySubscription' | translate }}
+                  </p>
+
+                </div>
+
+              </div>
+
+            }
+
+            <div class="my-5 border-t border-slate-200"></div>
+
+            <div class="space-y-3">
+
+              <div class="flex items-center justify-between gap-4">
+
+                <span class="text-sm text-slate-500">
+                  {{ 'success.order' | translate }}
+                </span>
+
+                <span class="text-sm font-medium text-slate-900">
+                  #{{ getOrderReference(result.cartId) }}
+                </span>
+
+              </div>
+
+              <div class="flex items-center justify-between gap-4">
+
+                <span class="text-sm text-slate-500">
+                  {{ 'success.paymentMethod' | translate }}
+                </span>
+
+                <span class="text-right text-sm font-medium text-slate-900">
+
+                  @switch (result.payment.method) {
+
+                    @case ('Credit Card') {
+                      {{ 'checkout.paymentMethod.creditCard' | translate }}
+                    }
+
+                    @case ('Debit Card') {
+                      {{ 'checkout.paymentMethod.debitCard' | translate }}
+                    }
+
+                    @case ('Pix') {
+                      {{ 'checkout.paymentMethod.pix' | translate }}
+                    }
+
+                    @default {
+                      {{ result.payment.method }}
+                    }
+
+                  }
+
+                  @if (result.payment.lastDigits) {
+                    •••• {{ result.payment.lastDigits }}
+                  }
+
+                </span>
+
+              </div>
+
+              <div class="flex items-center justify-between gap-4">
+
+                <span class="text-sm text-slate-500">
+                  {{ 'success.date' | translate }}
+                </span>
+
+                <span class="text-sm font-medium text-slate-900">
+                  {{ result.paidAt | date:'dd/MM/yyyy, HH:mm':'':'pt-BR' }}
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="my-5 border-t border-slate-200"></div>
+
+            <div class="flex items-center justify-between">
+
+              <span class="font-semibold text-slate-700">
+                {{ 'success.totalPaid' | translate }}
+              </span>
+
+              <span class="text-2xl font-bold text-slate-900">
+                {{ result.payment.amount | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="mt-8 space-y-4">
+
+            <button
+              type="button"
+              (click)="accessMySpace()"
+              class="flex w-full items-center justify-center gap-2
+                     rounded-xl bg-indigo-600 px-6 py-3
+                     font-semibold text-white transition
+                     hover:bg-indigo-700">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path d="M5 12h14"></path>
+                <path d="m13 6 6 6-6 6"></path>
+
+              </svg>
+
+              {{ 'success.accessSpace' | translate }}
+
+            </button>
+
+            <button
+              type="button"
+              (click)="viewReceipt()"
+              class="flex w-full items-center justify-center gap-2
+                     rounded-xl border border-slate-200
+                     bg-white px-6 py-3
+                     font-semibold text-slate-700 transition
+                     hover:bg-slate-50">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path
+                  d="M6 2h12a2 2 0 0 1 2 2v18
+                     l-3-2-3 2-3-2-3 2-3-2-3 2V4
+                     a2 2 0 0 1 2-2z">
+                </path>
+
+                <path d="M8 7h8"></path>
+                <path d="M8 11h8"></path>
+                <path d="M8 15h5"></path>
+
+              </svg>
+
+              {{ 'success.viewReceipt' | translate }}
+
+            </button>
+
+          </div>
+
+          <p class="mt-8 text-sm text-slate-500">
+
+            {{ 'success.nextRenewal' | translate }}
+
+            <span class="font-medium text-slate-700">
+              {{ getNextRenewalDate(result.paidAt) | date:'dd/MM/yyyy':'':'pt-BR' }}.
+            </span>
+
+          </p>
+
+        }
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>

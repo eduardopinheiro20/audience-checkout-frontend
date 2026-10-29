@@ -1,0 +1,134 @@
+{
+  "navbar": {
+    "secureCheckout": "Secure checkout"
+  },
+ "checkout": {
+    "header": {
+      "title": "Audience Checkout",
+      "subtitle": "Secure subscription experience"
+    },
+    "loading": "Loading checkout...",
+    "loadError": "Unable to load checkout.",
+    "badge": "Payment",
+    "title": "Complete your subscription",
+    "subtitle": "Choose a payment method and confirm your subscription.",
+    "paymentMethod": {
+      "title": "How would you like to pay?",
+      "creditCard": "Credit Card",
+      "debitCard": "Debit Card",
+      "pix": "Pix",
+      "select": "Select payment method",
+      "required": "Select a payment method to continue."
+    },
+   "actions": {
+      "confirm": "Confirm payment",
+      "pay": "Pay",
+      "processing": "Processing payment..."
+    },
+   "summary": {
+      "title": "Order summary",
+      "monthlySubscription": "Monthly subscription",
+      "monthlyPlan": "Monthly plan",
+      "subtotal": "Subtotal",
+      "fees": "Fees",
+      "total": "Total",
+      "totalToday": "Total today",
+      "renewalInfo": "Monthly renewal. Cancel anytime with no additional fees.",
+      "securityTitle": "Your data is protected",
+      "securityDescription": "Encrypted payment. We do not store your card details.",
+      "benefits": {
+        "projects": "Unlimited projects and tasks",
+        "reports": "Reports and automations",
+        "prioritySupport": "Priority support"
+      }
+    }
+  },
+  "card": {
+    "holderName": {
+      "label": "Cardholder name",
+      "placeholder": "Enter the cardholder name",
+      "error": "Enter the cardholder name."
+    },
+    "number": {
+      "label": "Card number",
+      "placeholder": "0000 0000 0000 0000",
+      "error": "Enter a valid card number."
+    },
+    "expiry": {
+      "label": "Expiry date",
+      "placeholder": "MM/YY",
+      "error": "Use MM/YY format."
+    },
+    "cvv": {
+      "label": "CVV",
+      "placeholder": "123",
+      "error": "Enter a valid CVV."
+    }
+  },
+  "pix": {
+    "title": "Pay with Pix",
+    "description": "Scan the QR Code or use the Pix copy and paste code below.",
+    "qrCodeDescription": "Simulated QR Code for demonstration purposes",
+    "copyPaste": "Pix copy and paste",
+    "copyButton": "Copy Pix code",
+    "copied": "Pix code copied"
+  },
+  "processing": {
+    "title": "Processing your payment",
+    "description": "We are waiting for confirmation. This may take a few seconds.",
+    "monthlyPlan": "Monthly plan",
+    "order": "Order",
+    "paymentMethod": "Payment method",
+    "total": "Total",
+    "waitingConfirmation": "Waiting for confirmation",
+    "doNotClose": "Do not close this page or submit the payment again.",
+    "simulatedState": "Simulated processing state"
+  },
+  "success": {
+    "title": "Payment confirmed!",
+    "description": "Your subscription was successfully activated.",
+    "status": "Subscription active",
+    "monthlySubscription": "Monthly subscription",
+    "order": "Order",
+    "paymentMethod": "Payment method",
+    "date": "Date",
+    "totalPaid": "Total paid",
+    "cardEnding": "Card ending in",
+    "accessSpace": "Access my space",
+    "viewReceipt": "View receipt",
+    "nextRenewal": "Your next renewal will be on"
+  },
+  "error": {
+    "title": "We couldn't complete your payment",
+    "description": "Don't worry: no charge was made and your order is still reserved.",
+    "cardDeclined": "Card not authorized",
+    "cardDeclinedDescription": "Your bank declined this transaction. Check your card details and available limit or use another payment method.",
+    "monthlyPlan": "Monthly plan",
+    "order": "Order",
+    "paymentMethod": "Payment method",
+    "totalToPay": "Total to pay",
+    "tryAgain": "Try again",
+    "changePaymentMethod": "Choose another method",
+    "alternativePayment": "You can pay with another card or choose Pix.",
+    "help": "Still need help? Contact us."
+  },
+  "products": {
+    "basic": {
+      "name": "Basic Plan",
+      "description": "Essential plan to start your subscription."
+    },
+    "premium": {
+      "name": "Premium Plan",
+      "description": "Complete plan with more benefits for your subscription."
+    },
+    "family": {
+      "name": "Family Plan",
+      "description": "Ideal plan to share your subscription with your family."
+    }
+  },
+   "stepper": {
+      "plan": "Plan",
+      "payment": "Payment",
+      "confirmation": "Confirmation"
+    }
+}

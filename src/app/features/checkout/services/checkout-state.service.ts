@@ -1,38 +1,83 @@
 import { Injectable, computed, signal } from '@angular/core';
 import {
-  CheckoutResultState,
-  PreCheckoutResponse
-} from '../../../core/models/checkout.models';
+  ApiErrorResponse,
+  CheckoutResponse,
+  PaymentMethodResponse,
+  PreCheckoutResponse,
+  ProductResponse
+} from '../../../core/api/checkout-api.service';
 
-/**
- * Feature-scoped state boundary.
- *
- * Signals keep state explicit and easy to read.
- * Persistence/rehydration will be added when implementing the required
- * direct-URL/refresh behavior.
- */
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class CheckoutStateService {
 
-  private readonly cartSignal = signal<PreCheckoutResponse | null>(null);
-  private readonly resultSignal = signal<CheckoutResultState | null>(null);
+  private readonly cartIdSignal = signal<string | null>(null);
+  private readonly productsSignal = signal<ProductResponse[]>([]);
+  private readonly paymentMethodsSignal = signal<PaymentMethodResponse[]>([]);
+  private readonly selectedPaymentMethodSignal = signal<string | null>(null);
+  private readonly hasResultSignal = signal(false);
+  private readonly checkoutResultSignal = signal<CheckoutResponse | null>(null);
+  private readonly checkoutErrorSignal =
+  signal<ApiErrorResponse | null>(null);
 
-  readonly cart = this.cartSignal.asReadonly();
-  readonly result = this.resultSignal.asReadonly();
+readonly checkoutError =
+  this.checkoutErrorSignal.asReadonly();
 
-  readonly hasCart = computed(() => this.cartSignal() !== null);
-  readonly hasResult = computed(() => this.resultSignal() !== null);
+  readonly hasResult = this.hasResultSignal.asReadonly();
+  readonly cartId = this.cartIdSignal.asReadonly();
+  readonly products = this.productsSignal.asReadonly();
+  readonly paymentMethods = this.paymentMethodsSignal.asReadonly();
+  readonly selectedPaymentMethod = this.selectedPaymentMethodSignal.asReadonly();
+  readonly checkoutResult = this.checkoutResultSignal.asReadonly();
 
-  setCart(cart: PreCheckoutResponse): void {
-    this.cartSignal.set(cart);
+  readonly hasCheckoutData = computed(
+    () =>
+      this.cartIdSignal() !== null &&
+      this.productsSignal().length > 0
+  );
+
+  readonly totalAmount = computed(() =>
+    this.productsSignal()
+      .reduce(
+        (total, product) => total + product.price,
+        0
+      )
+  );
+
+  setPreCheckout(response: PreCheckoutResponse): void {
+    this.cartIdSignal.set(response.cartId);
+    this.productsSignal.set(response.products);
+    this.paymentMethodsSignal.set(response.paymentMethods);
   }
 
-  setResult(result: CheckoutResultState): void {
-    this.resultSignal.set(result);
+  setCheckoutResult(result: CheckoutResponse): void {
+  this.checkoutResultSignal.set(result);
+  this.checkoutErrorSignal.set(null);
+  this.hasResultSignal.set(true);
   }
 
-  reset(): void {
-    this.cartSignal.set(null);
-    this.resultSignal.set(null);
+  setCheckoutError(error: ApiErrorResponse): void {
+    this.checkoutErrorSignal.set(error);
+    this.checkoutResultSignal.set(null);
+    this.hasResultSignal.set(true);
+  }
+
+  selectPaymentMethod(paymentMethod: string | null): void {
+    this.selectedPaymentMethodSignal.set(paymentMethod);
+  }
+
+  clear(): void {
+    this.cartIdSignal.set(null);
+    this.productsSignal.set([]);
+    this.paymentMethodsSignal.set([]);
+    this.selectedPaymentMethodSignal.set(null);
+    this.hasResultSignal.set(false);
+    this.checkoutResultSignal.set(null);
+    this.checkoutErrorSignal.set(null);
+  }
+
+  markResult(): void {
+    this.hasResultSignal.set(true);
   }
 }

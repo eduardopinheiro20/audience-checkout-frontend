@@ -1,31 +1,44 @@
-import { Component } from '@angular/core';
-import { BrandHeaderComponent } from '../../../../shared/components/brand-header/brand-header.component';
+import { Component, inject } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { CheckoutStateService } from '../../services/checkout-state.service';
+import { CheckoutStepperComponent } from '../payment/components/checkout-stepper/checkout-stepper.component';
+import { CheckoutNavbarComponent } from '../payment/components/checkout-navbar/checkout-navbar.component';
 
 @Component({
   selector: 'app-error-page',
   standalone: true,
-  imports: [BrandHeaderComponent],
-  template: `
-    <main class="checkout-shell">
-      <div class="container">
-        <app-brand-header />
-
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-8">
-            <div class="card checkout-card">
-              <div class="card-body p-5 text-center">
-                <div class="display-6 mb-3">!</div>
-                <h1 class="h3">Payment could not be completed</h1>
-                <p class="text-muted-app mb-0">
-                  Error details and recovery actions will be implemented later.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  `
+  imports: [
+    TranslatePipe,
+    CurrencyPipe,
+    CheckoutStepperComponent,
+    CheckoutNavbarComponent
+  ],
+  templateUrl: './error-page.component.html',
+  styleUrl: './error-page.component.scss'
 })
 export class ErrorPageComponent {
+
+  private readonly router = inject(Router);
+
+  readonly checkoutState = inject(CheckoutStateService);
+
+  tryAgain(): void {
+    this.router.navigate(['/checkout/payment']);
+  }
+
+  changePaymentMethod(): void {
+    this.checkoutState.selectPaymentMethod(null);
+
+    this.router.navigate(['/checkout/payment']);
+  }
+
+  getOrderReference(cartId: string): string {
+    return cartId
+      .replaceAll('-', '')
+      .substring(0, 8)
+      .toUpperCase();
+  }
 }

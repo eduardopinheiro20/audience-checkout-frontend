@@ -1,0 +1,189 @@
+<form
+  [formGroup]="form()"
+  class="mt-8 space-y-5 rounded-xl bg-slate-50 p-5">
+
+  <div>
+
+  <div class="mb-2 flex items-center justify-between">
+
+    <label
+      for="cardNumber"
+      class="block text-sm font-medium text-slate-700">
+
+        {{ 'card.number.label' | translate }}
+
+    </label>
+
+
+    @if (cardBrand(); as brand) {
+
+      <span
+        class="
+          rounded-md
+          bg-indigo-50
+          px-2
+          py-1
+          text-xs
+          font-bold
+          uppercase
+          text-indigo-700
+        ">
+
+        {{ brand }}
+
+      </span>
+
+    }
+
+  </div>
+
+
+  <div class="relative">
+
+    <!-- CARD ICON -->
+    <div
+      class="
+        pointer-events-none
+        absolute
+        inset-y-0
+        left-0
+        flex
+        items-center
+        pl-4
+        text-slate-400
+      ">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        class="h-5 w-5">
+
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="14"
+          rx="2">
+        </rect>
+
+        <path d="M3 10h18"></path>
+
+      </svg>
+
+    </div>
+
+
+    <input
+      id="cardNumber"
+      type="text"
+      inputmode="numeric"
+      autocomplete="cc-number"
+      formControlName="number"
+      maxlength="19"
+      (input)="formatCardNumber($event)"
+      placeholder="0000 0000 0000 0000"
+
+      class="
+        w-full
+        rounded-lg
+        border
+        border-slate-300
+        bg-white
+        py-3
+        pl-12
+        pr-4
+        text-sm
+        text-slate-900
+        outline-none
+        transition
+        focus:border-indigo-500
+        focus:ring-2
+        focus:ring-indigo-100
+      ">
+
+  </div>
+
+
+  @if (isFieldInvalid('number')) {
+
+    <p class="mt-1 text-sm text-red-600">
+
+      {{ 'card.number.error' | translate }}
+
+    </p>
+
+  }
+
+</div>
+
+   <div>
+    <label
+      for="holderName"
+      class="mb-2 block text-sm font-medium text-slate-700">
+      {{ 'card.holderName.label' | translate }}
+    </label>
+
+    <input
+      id="holderName"
+      type="text"
+      formControlName="holderName"
+      [placeholder]="'card.holderName.placeholder' | translate"
+      class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+
+    @if (isFieldInvalid('holderName')) {
+      <p class="mt-1 text-sm text-red-600">
+        {{ 'card.holderName.error' | translate }}
+      </p>
+    }
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+
+    <div>
+      <label
+        for="expiry"
+        class="mb-2 block text-sm font-medium text-slate-700">
+        {{ 'card.expiry.label' | translate }}
+      </label>
+
+      <input
+        id="expiry"
+        type="text"
+        formControlName="expiry"
+        [placeholder]="'card.expiry.placeholder' | translate"
+        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+
+      @if (isFieldInvalid('expiry')) {
+        <p class="mt-1 text-sm text-red-600">
+          {{ 'card.expiry.error' | translate }}
+        </p>
+      }
+    </div>
+
+    <div>
+      <label
+        for="cvv"
+        class="mb-2 block text-sm font-medium text-slate-700">
+        {{ 'card.cvv.label' | translate }}
+      </label>
+
+      <input
+        id="cvv"
+        type="password"
+        inputmode="numeric"
+        formControlName="cvv"
+        [placeholder]="'card.cvv.placeholder' | translate"
+        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+
+      @if (isFieldInvalid('cvv')) {
+        <p class="mt-1 text-sm text-red-600">
+          {{ 'card.cvv.error' | translate }}
+        </p>
+      }
+    </div>
+
+  </div>
+</form>

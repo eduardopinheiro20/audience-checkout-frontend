@@ -1,0 +1,157 @@
+<div
+  class="mt-8 min-w-0 rounded-xl border border-indigo-100
+         bg-indigo-50 p-4 sm:p-6">
+
+  <h4 class="font-semibold text-slate-900">
+    {{ 'pix.title' | translate }}
+  </h4>
+
+  <p class="mt-2 text-sm leading-6 text-slate-600">
+    {{ 'pix.description' | translate }}
+  </p>
+
+
+  <!-- QR CODE -->
+  <div
+    class="mt-5 flex min-w-0 flex-col items-center
+           overflow-hidden rounded-xl border border-indigo-200
+           bg-white p-4 sm:p-6">
+
+    @if (qrCodeDataUrl()) {
+
+      <img
+        [src]="qrCodeDataUrl()"
+        [attr.alt]="'pix.qrCodeAlt' | translate"
+        class="h-auto w-full max-w-[220px] object-contain"
+      >
+
+    }
+
+    <p class="mt-3 text-center text-xs text-slate-400">
+      {{ 'pix.qrCodeDescription' | translate }}
+    </p>
+
+  </div>
+
+
+  <!-- PIX COPY AND PASTE -->
+  <div class="mt-5 min-w-0">
+
+    <label
+      class="mb-2 block text-sm font-medium text-slate-700">
+
+      {{ 'pix.copyPaste' | translate }}
+
+    </label>
+
+
+    <div
+      class="flex min-w-0 items-center gap-3
+             rounded-lg border border-slate-200
+             bg-white px-3 py-3 sm:px-4">
+
+      <span
+        class="min-w-0 flex-1 truncate text-xs text-slate-500">
+
+        {{ pixCode }}
+
+      </span>
+
+
+      <button
+        type="button"
+        (click)="copyPixCode()"
+        [attr.title]="'pix.copyButton' | translate"
+        class="shrink-0 text-indigo-500 transition
+               hover:text-indigo-700">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2">
+
+          <rect
+            x="9"
+            y="9"
+            width="13"
+            height="13"
+            rx="2"
+            ry="2">
+          </rect>
+
+          <path
+            d="M5 15H4a2 2 0 0 1-2-2V4
+               a2 2 0 0 1 2-2h9
+               a2 2 0 0 1 2 2v1">
+          </path>
+
+        </svg>
+
+      </button>
+
+    </div>
+
+
+    <!-- COPY BUTTON -->
+    <button
+      type="button"
+      (click)="copyPixCode()"
+
+      class="mt-3 flex w-full items-center
+             justify-center gap-2 rounded-lg
+             border px-4 py-3 text-sm
+             font-semibold transition"
+
+      [class.border-emerald-200]="copied()"
+      [class.bg-emerald-50]="copied()"
+      [class.text-emerald-700]="copied()"
+
+      [class.border-slate-200]="!copied()"
+      [class.bg-white]="!copied()"
+      [class.text-slate-700]="!copied()"
+      [class.hover:bg-slate-50]="!copied()">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 shrink-0"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+
+        <rect
+          x="9"
+          y="9"
+          width="13"
+          height="13"
+          rx="2"
+          ry="2">
+        </rect>
+
+        <path
+          d="M5 15H4a2 2 0 0 1-2-2V4
+             a2 2 0 0 1 2-2h9
+             a2 2 0 0 1 2 2v1">
+        </path>
+
+      </svg>
+
+
+      @if (copied()) {
+
+        {{ 'pix.copied' | translate }}
+
+      } @else {
+
+        {{ 'pix.copyButton' | translate }}
+
+      }
+
+    </button>
+
+  </div>
+
+</div>

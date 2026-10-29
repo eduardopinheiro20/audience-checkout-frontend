@@ -1,0 +1,383 @@
+<!-- TOP NAVBAR -->
+<app-checkout-navbar />
+
+<main class="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
+
+  <div class="mx-auto max-w-6xl">
+
+    <!-- Checkout progress -->
+    <div class="mx-auto mb-8 max-w-4xl">
+      <app-checkout-stepper [currentStep]="2" />
+    </div>
+
+
+    <!-- Error content -->
+    <div class="mx-auto max-w-2xl">
+
+      <section
+        class="rounded-2xl border border-slate-200
+               bg-white p-6 text-center shadow-sm
+               sm:p-8">
+
+        <!-- Error icon -->
+        <div
+          class="mx-auto flex h-16 w-16 items-center justify-center
+                 rounded-full bg-red-50 text-red-500">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2">
+
+            <circle cx="12" cy="12" r="9"></circle>
+
+            <path d="M12 8v5"></path>
+
+            <path d="M12 16h.01"></path>
+
+          </svg>
+
+        </div>
+
+
+        <!-- Title -->
+        <h1
+          class="mx-auto mt-6 max-w-xl
+                 text-2xl font-bold tracking-tight text-slate-900
+                 sm:text-3xl">
+
+          {{ 'error.title' | translate }}
+
+        </h1>
+
+
+        <p
+          class="mx-auto mt-2 max-w-lg
+                 text-sm leading-6 text-slate-500">
+
+          {{ 'error.description' | translate }}
+
+        </p>
+
+
+        @if (checkoutState.checkoutError(); as error) {
+
+          <!-- Declined card message -->
+          <div
+            class="mt-6 rounded-xl
+                   border border-red-100 bg-red-50
+                   p-4 text-left">
+
+            <div class="flex items-start gap-3">
+
+              <div class="mt-0.5 shrink-0 text-red-500">
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2">
+
+                  <circle cx="12" cy="12" r="9"></circle>
+
+                  <path d="M12 8v5"></path>
+
+                  <path d="M12 16h.01"></path>
+
+                </svg>
+
+              </div>
+
+
+              <div class="min-w-0">
+
+                <p class="text-sm font-semibold text-red-700">
+
+                  {{ 'error.cardDeclined' | translate }}
+
+                </p>
+
+
+                <p class="mt-1 text-xs leading-5 text-red-600">
+
+                  {{ 'error.cardDeclinedDescription' | translate }}
+
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- Order summary -->
+          <div
+            class="mt-6 rounded-xl bg-slate-50
+                   p-5 text-left sm:p-6">
+
+            <!-- Product -->
+            @for (
+              product of checkoutState.products();
+              track product.slug
+            ) {
+
+              <div class="flex items-start gap-4">
+
+                <div
+                  class="flex h-12 w-12 shrink-0
+                         items-center justify-center
+                         rounded-xl bg-indigo-100
+                         font-bold text-indigo-700">
+
+                  {{ product.name.charAt(0) }}
+
+                </div>
+
+
+                <div class="min-w-0 flex-1">
+
+                  <p class="font-semibold text-slate-900">
+
+                    {{
+                      ('products.' + product.slug + '.name')
+                        | translate
+                    }}
+
+                  </p>
+
+                  <p class="mt-1 text-sm text-slate-500">
+
+                    {{ 'error.monthlyPlan' | translate }}
+
+                  </p>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <div class="my-5 border-t border-slate-200"></div>
+
+
+            <!-- Order information -->
+            <div class="space-y-3">
+
+              <!-- Order -->
+              <div
+                class="flex items-center justify-between gap-4">
+
+                <span class="text-sm text-slate-500">
+
+                  {{ 'error.order' | translate }}
+
+                </span>
+
+                <span
+                  class="text-right text-sm
+                         font-medium text-slate-900">
+
+                  @if (error.cartId) {
+                    #{{ getOrderReference(error.cartId) }}
+                  }
+
+                </span>
+
+              </div>
+
+
+              <!-- Payment method -->
+              <div
+                class="flex items-center justify-between gap-4">
+
+                <span class="text-sm text-slate-500">
+
+                  {{ 'error.paymentMethod' | translate }}
+
+                </span>
+
+                <span
+                  class="text-right text-sm
+                         font-medium text-slate-900">
+
+                  @switch (checkoutState.selectedPaymentMethod()) {
+
+                    @case ('Credit Card') {
+
+                      {{
+                        'checkout.paymentMethod.creditCard'
+                          | translate
+                      }}
+
+                    }
+
+                    @case ('Debit Card') {
+
+                      {{
+                        'checkout.paymentMethod.debitCard'
+                          | translate
+                      }}
+
+                    }
+
+                    @case ('Pix') {
+
+                      {{
+                        'checkout.paymentMethod.pix'
+                          | translate
+                      }}
+
+                    }
+
+                    @default {
+
+                      {{
+                        checkoutState.selectedPaymentMethod()
+                      }}
+
+                    }
+
+                  }
+
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="my-5 border-t border-slate-200"></div>
+
+
+            <!-- Total -->
+            <div
+              class="flex items-center justify-between gap-4">
+
+              <span
+                class="font-semibold text-slate-700">
+
+                {{ 'error.totalToPay' | translate }}
+
+              </span>
+
+              <span
+                class="text-2xl font-bold text-slate-900">
+
+                {{
+                  checkoutState.totalAmount()
+                    | currency:'BRL':'symbol':'1.2-2':'pt-BR'
+                }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Actions -->
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+
+            <!-- Try again -->
+            <button
+              type="button"
+              (click)="tryAgain()"
+
+              class="flex w-full items-center
+                     justify-center gap-2 rounded-xl
+                     bg-indigo-600 px-6 py-3
+                     font-semibold text-white
+                     transition hover:bg-indigo-700">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path
+                  d="M20 6v5h-5">
+                </path>
+
+                <path
+                  d="M20 11a8 8 0 1 0-2.34 5.66">
+                </path>
+
+              </svg>
+
+              {{ 'error.tryAgain' | translate }}
+
+            </button>
+
+
+            <!-- Change payment method -->
+            <button
+              type="button"
+              (click)="changePaymentMethod()"
+
+              class="flex w-full items-center
+                     justify-center rounded-xl
+                     border border-slate-200
+                     bg-white px-6 py-3
+                     font-semibold text-slate-700
+                     transition hover:bg-slate-50">
+
+              {{ 'error.changePaymentMethod' | translate }}
+
+            </button>
+
+          </div>
+
+
+          <!-- Alternative payment info -->
+          <p class="mt-5 text-xs leading-5 text-slate-500">
+
+            {{ 'error.alternativePayment' | translate }}
+
+          </p>
+
+        }
+
+      </section>
+
+
+      <!-- Help -->
+      <div
+        class="mt-6 flex items-center
+               justify-center gap-2
+               text-sm font-medium text-indigo-600">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2">
+
+          <path
+            d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z">
+          </path>
+
+        </svg>
+
+        <span>
+          {{ 'error.help' | translate }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
